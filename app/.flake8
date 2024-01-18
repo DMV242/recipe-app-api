@@ -6,4 +6,6 @@ exclude =
     manage.py,
     settings.py,
     tests.py,
-    calc.py
+    calc.py,
+    core,
+ 
