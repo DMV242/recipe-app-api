@@ -16,9 +16,10 @@ class ModelTests(TestCase):
 
 
         self.assertEqual(user.email,email)
+
         self.assertTrue(user.check_password(password))
 
-    def test_nex_user_email_normalized(self):
+    def test_new_user_email_normalized(self):
         sample_emails = [
             ['test1@EXAMPLE.com',"test1@example.com"],
             ['test2@EXAMPLE.Com',"test2@example.com"],
@@ -40,6 +41,8 @@ class ModelTests(TestCase):
             'admin123'
         )
 
+        self.assertTrue(user.is_active)
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
+        self.assertTrue(user.check_password("admin123"))
 
