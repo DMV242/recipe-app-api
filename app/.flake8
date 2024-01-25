@@ -1,6 +1,6 @@
 [flake8]
 
-exclude = 
+exclude =
     migrations,
     __pycache__,
     manage.py,
@@ -8,4 +8,5 @@ exclude =
     tests.py,
     calc.py,
     core,
- 
+    user,
+
