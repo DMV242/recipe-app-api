@@ -9,4 +9,5 @@ exclude =
     calc.py,
     core,
     user,
+    recipe,
 
