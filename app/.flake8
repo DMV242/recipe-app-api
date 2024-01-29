@@ -10,4 +10,5 @@ exclude =
     core,
     user,
     recipe,
+    app,
 
