@@ -1,60 +1,50 @@
+"""
+Django admin customization.
+"""
 from django.contrib import admin
-from django.contrib.admin import AdminSite
-
-# Register your models here.
-
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext_lazy as _
 
 from core import models
 
+
 class UserAdmin(BaseUserAdmin):
-
-
-
-    ordering = ["-id"]
-    list_display = ["email","name","is_active"]
-
-    list_editable = ["is_active"]
-
-
+    """Define the admin pages for users."""
+    ordering = ['id']
+    list_display = ['email', 'name']
     fieldsets = (
-        (None,{"fields":("email", "password")}),
+        (None, {'fields': ('email', 'password')}),
+        (_('Personal Info'), {'fields': ('name',)}),
         (
-            _("Permissions"),
+            _('Permissions'),
             {
-                "fields":(
-                    "is_active",
-                    "is_staff",
-                    "is_superuser",
+                'fields': (
+                    'is_active',
+                    'is_staff',
+                    'is_superuser',
                 )
             }
         ),
-        (_("Important dates"),{ "fields":("last_login",)}),
+        (_('Important dates'), {'fields': ('last_login',)}),
     )
-    readonly_fields = ["last_login"]
-
+    readonly_fields = ['last_login']
     add_fieldsets = (
-        (None, {"classes": ("wide",),
-                "fields":(
-                    "email",
-                    "password1",
-                    "password2",
-                    "name",
-                    "is_active",
-                    "is_staff",
-                    "is_superuser",
-                    )
-                }),
+        (None, {
+            'classes': ('wide',),
+            'fields': (
+                'email',
+                'password1',
+                'password2',
+                'name',
+                'is_active',
+                'is_staff',
+                'is_superuser',
+            ),
+        }),
     )
 
 
-
-
-
-
-admin.site.site_header = "Recipe app Administration"
-admin.site.register(models.User,UserAdmin)
+admin.site.register(models.User, UserAdmin)
 admin.site.register(models.Recipe)
 admin.site.register(models.Tag)
 admin.site.register(models.Ingredient)
