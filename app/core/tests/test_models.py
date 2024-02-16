@@ -2,7 +2,7 @@
 Tests for models.
 """
 from decimal import Decimal
-
+from unittest.mock import patch
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 
@@ -88,3 +88,24 @@ class ModelTests(TestCase):
         )
 
         self.assertEqual(str(ingredient), ingredient.name)
+
+
+    @patch("core.models.uuid.uuid4")
+    def test_recipe_file_name_uuid(self, mock_uuid):
+        """Test that image is saved in the correct location"""
+        uuid = 'test-uuid'
+        mock_uuid.return_value = uuid
+        file_path = models.recipe_image_file_path(None, 'myimage.jpg')
+        exp_path = f'uploads/recipe/{uuid}.jpg'
+        self.assertEqual(file_path, exp_path)
+
+    # def test_get_absolute_url(self):
+    #     """Test that the absolute url returns the correct value for Recipe model."""
+    #     recipe = models.Recipe.objects.create(
+    #         user=create_user(),
+    #         title='Test Recipe',
+    #         time_minutes=30,
+    #         price=Decimal('2.50'),
+    #     )
+    #     self.assertEqual(recipe.get_absolute_url(), f'/recipe/1')
+
